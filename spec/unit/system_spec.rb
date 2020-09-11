@@ -146,7 +146,7 @@ describe "Ohai::System" do
             message("default")
           end
 
-          collect_data(:#{Ohai::Mixin::OS.collect_os}) do
+          collect_data(:#{Ohai::Mixin::OS.collect_os_local}) do
             message("platform_specific_message")
           end
         end

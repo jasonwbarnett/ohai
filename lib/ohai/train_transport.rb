@@ -1,5 +1,4 @@
-#
-# Author:: Caleb Tennis (<caleb.tennis@gmail.com>)
+# Author:: Bryan McLellan <btm@loftninjas.org>
 # Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
@@ -16,10 +15,14 @@
 # limitations under the License.
 #
 
-Ohai.plugin(:InitPackage) do
-  provides "init_package"
+require "chef-config/mixin/train_transport" unless defined?(ChefConfig::Mixin::TrainTransport)
 
-  collect_data(:linux) do
-    init_package file_exist?("/proc/1/comm") ? file_open("/proc/1/comm").gets.chomp : "init"
+module Ohai
+  class TrainTransport
+    include ChefConfig::Mixin::TrainTransport
+
+    def config
+      Ohai::Config
+    end
   end
 end

@@ -1,5 +1,4 @@
 #
-# Author:: Caleb Tennis (<caleb.tennis@gmail.com>)
 # Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
@@ -14,12 +13,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-Ohai.plugin(:InitPackage) do
-  provides "init_package"
+require "chef-utils/dsl/train_helpers" unless defined?(ChefUtils::DSL::TrainHelpers)
+require_relative "chef_utils_wiring" unless defined?(Ohai::Mixin::ChefUtilsWiring)
 
-  collect_data(:linux) do
-    init_package file_exist?("/proc/1/comm") ? file_open("/proc/1/comm").gets.chomp : "init"
+module Ohai
+  module Mixin
+    module TrainHelpers
+      include ChefUtils::DSL::TrainHelpers
+      include ChefUtilsWiring
+
+      # anything added to this file temporarily should be pushed back up
+      # into ChefUtils::DSL::TrainHelpers
+
+      # FIXME: we need a `Dir[]` replacement
+    end
   end
 end

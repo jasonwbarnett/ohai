@@ -22,7 +22,7 @@ end
 
 include Ohai::Mixin::ConstantHelper
 
-if Ohai::Mixin::OS.collect_os == /mswin|mingw32|windows/
+if Ohai::Mixin::OS.collect_os_local == /mswin|mingw32|windows/
   ENV["PATH"] = ""
 end
 
