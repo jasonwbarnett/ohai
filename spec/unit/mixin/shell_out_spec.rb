@@ -55,6 +55,9 @@ describe Ohai::Mixin::ShellOut, "shell_out" do
 
   class DummyPlugin
     include Ohai::Mixin::ShellOut
+    def transport_connection
+      nil
+    end
   end
 
   let(:instance) { DummyPlugin.new }

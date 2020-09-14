@@ -91,9 +91,9 @@ describe Ohai::System, "plugin azure" do
   describe "without azure hint file or agent or dhcp options" do
     before do
       allow(plugin).to receive(:hint?).with("azure").and_return(false)
-      allow(File).to receive(:exist?).with("/usr/sbin/waagent").and_return(false)
-      allow(Dir).to receive(:exist?).with('C:\WindowsAzure').and_return(false)
-      allow(File).to receive(:exist?).with("/var/lib/dhcp/dhclient.eth0.leases").and_return(true)
+      allow(plugin).to receive(:file_exist?).with("/usr/sbin/waagent").and_return(false)
+      allow(plugin).to receive(:dir_exist?).with('C:\WindowsAzure').and_return(false)
+      allow(plugin).to receive(:file_exist?).with("/var/lib/dhcp/dhclient.eth0.leases").and_return(true)
       @double_file = double("/var/lib/dhcp/dhclient.eth0.leases")
       allow(@double_file).to receive(:each)
         .and_yield("lease {")
@@ -115,7 +115,7 @@ describe Ohai::System, "plugin azure" do
         .and_yield("  rebind 2 2016/03/01 13:22:07;")
         .and_yield("  expire 2 2016/03/01 16:40:56;")
         .and_yield("}")
-      allow(File).to receive(:open).with("/var/lib/dhcp/dhclient.eth0.leases").and_return(@double_file)
+      allow(plugin).to receive(:file_open).with("/var/lib/dhcp/dhclient.eth0.leases").and_return(@double_file)
     end
 
     it_behaves_like "!azure"
@@ -146,8 +146,8 @@ describe Ohai::System, "plugin azure" do
   describe "without azure hint file but with agent on windows" do
     before do
       allow(plugin).to receive(:hint?).with("azure").and_return(false)
-      allow(File).to receive(:exist?).with("/usr/sbin/waagent").and_return(false)
-      allow(Dir).to receive(:exist?).with('C:\WindowsAzure').and_return(true)
+      allow(plugin).to receive(:file_exist?).with("/usr/sbin/waagent").and_return(false)
+      allow(plugin).to receive(:dir_exist?).with('C:\WindowsAzure').and_return(true)
     end
 
     it_behaves_like "azure"
@@ -156,9 +156,9 @@ describe Ohai::System, "plugin azure" do
   describe "without azure hint or agent but with dhcp option" do
     before do
       allow(plugin).to receive(:hint?).with("azure").and_return(false)
-      allow(File).to receive(:exist?).with("/usr/sbin/waagent").and_return(false)
-      allow(Dir).to receive(:exist?).with('C:\WindowsAzure').and_return(false)
-      allow(File).to receive(:exist?).with("/var/lib/dhcp/dhclient.eth0.leases").and_return(true)
+      allow(plugin).to receive(:file_exist?).with("/usr/sbin/waagent").and_return(false)
+      allow(plugin).to receive(:dir_exist?).with('C:\WindowsAzure').and_return(false)
+      allow(plugin).to receive(:file_exist?).with("/var/lib/dhcp/dhclient.eth0.leases").and_return(true)
       @double_file = double("/var/lib/dhcp/dhclient.eth0.leases")
       allow(@double_file).to receive(:each)
         .and_yield("lease {")

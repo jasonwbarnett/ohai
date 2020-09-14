@@ -20,6 +20,9 @@ require "spec_helper"
 
 class FileHelperMock
   include Ohai::Mixin::Which
+  def transport_connection
+    nil
+  end
 end
 
 describe "Ohai::Mixin::Which" do
