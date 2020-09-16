@@ -2,6 +2,9 @@ source "https://rubygems.org"
 
 gemspec
 
+gem "chef-config", git: "https://github.com/chef/chef", glob: "chef-config/*.gemspec"
+gem "chef-utils", git: "https://github.com/chef/chef", glob: "chef-utils/*.gemspec"
+
 # NOTE: do not submit PRs to add pry as a dep, add to your Gemfile.local
 group :development do
   gem "chefstyle", git: "https://github.com/chef/chefstyle.git", branch: "master"
