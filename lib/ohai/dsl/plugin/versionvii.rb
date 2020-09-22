@@ -127,8 +127,10 @@ module Ohai
           # :default - means any remote or local unix or windows host
           # :target  - means any remote API which is not unix/windows or otherwise rubyable (cisco switches, IPMI console, HTTP API, etc)
           #
-          # Do not be confused by the fact that collectors tagged :target do not run against target-mode ubuntu boxes, that is not
-          # what :target is intended for.
+          # Do not be confused by the fact that collectors tagged :target do not run against e.g. target-mode ubuntu boxes, that is not
+          # what :target is intended for.  Also, do not be confused by the fact that collectors tagged :default do not run by default against
+          # pure-target mode targets like switches.  That is all intended behavior, the names are problematic.  The :default nomenclature was
+          # invented 10 years before target mode and we are stuck with it.
           #
           if collector.key?(os)
             instance_eval(&collector[os])
