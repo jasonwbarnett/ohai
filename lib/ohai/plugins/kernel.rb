@@ -156,6 +156,10 @@ Ohai.plugin(:Kernel) do
     ].include?(name)
   end
 
+  collect_data(:target) do
+    # intentionally left blank
+  end
+
   collect_data(:default) do
     kernel init_kernel
   end
