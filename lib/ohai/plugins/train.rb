@@ -24,6 +24,12 @@ Ohai.plugin(:Train) do
       train["family_hierarchy"] = transport_connection.platform.family_hierarchy
       train["family"] = transport_connection.platform.family
       train["platform"] = transport_connection.platform.platform
+      train["backend"] = transport_connection.backend_type
+      if transport_connection.respond_to?(:uri)
+        train["scheme"] = URI.parse(transport_connection.uri).scheme
+        train["uri"] = transport_connection.uri
+      else
+      end
     end
   end
 end
