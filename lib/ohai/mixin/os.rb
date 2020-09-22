@@ -79,6 +79,8 @@ module Ohai
         when transport_connection.os.unix?
           raise "Target mode unsupported on this Unix-like host, please update the collect_os_target case statement with the correct ruby host_os value."
         else
+          # now we have something like an IPMI console that isn't Unix-like or Windows, presumably cannot run ruby, and
+          # so we just trust the train O/S information.
           transport_connection.os
         end
       end
