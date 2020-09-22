@@ -22,7 +22,7 @@ Ohai.plugin(:Shells) do
   collect_data do
     if file_exist?("/etc/shells")
       shells []
-      file_readlines("/etc/shells").each do |line|
+      file_open("/etc/shells").readlines.each do |line|
         # remove carriage returns and skip over comments / empty lines
         shells << line.chomp if line[0] == "/"
       end

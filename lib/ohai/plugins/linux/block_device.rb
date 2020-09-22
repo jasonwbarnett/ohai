@@ -22,7 +22,7 @@ Ohai.plugin(:BlockDevice) do
   collect_data(:linux) do
     if file_exist?("/sys/block")
       block = Mash.new
-      Dir["/sys/block/*"].each do |block_device_dir|
+      dir_glob("/sys/block/*").each do |block_device_dir|
         dir = File.basename(block_device_dir)
         block[dir] = Mash.new
         %w{size removable}.each do |check|

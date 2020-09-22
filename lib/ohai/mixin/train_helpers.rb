@@ -26,7 +26,10 @@ module Ohai
       # anything added to this file temporarily should be pushed back up
       # into ChefUtils::DSL::TrainHelpers
 
-      # FIXME: we need a `Dir[]` replacement
+      # XXX: this needs better support directly in train
+      def dir_glob(path)
+        shell_out!("ls -d #{path}").stdout.split
+      end
     end
   end
 end
