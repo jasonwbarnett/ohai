@@ -84,6 +84,11 @@ module Ohai
       end
 
       # @api private
+      def nonruby_target?
+        transport_connection && !transport_connection.os.unix? && !transport_connection.os.windows
+      end
+
+      # @api private
       def collect_os_local
         case ::RbConfig::CONFIG["host_os"]
         when /aix(.+)$/
