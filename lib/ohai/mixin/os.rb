@@ -77,7 +77,7 @@ module Ohai
           # for any target which can run ruby.
           #
         when transport_connection.os.unix?
-          raise "Ohai target mode not supported on this host"
+          raise "Target mode unsupported on this Unix-like host, please update the collect_os_target case statement with the correct ruby host_os value."
         else
           transport_connection.os
         end
