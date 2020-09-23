@@ -102,10 +102,10 @@ class Ohai::Application
 
     load_workstation_config
 
-    Ohai::Config.merge!(config)
+    merge_configs
 
-    if config[:target] || Ohai::Config.target
-      Ohai::Config.target_mode.host = config[:target] || Ohai::Config.target
+    if config[:target]
+      Ohai::Config.target_mode.host = config[:target]
       if URI.parse(Ohai::Config.target_mode.host).scheme
         train_config = Train.unpack_target_from_uri(Ohai::Config.target_mode.host)
         Ohai::Config.target_mode = train_config
@@ -114,7 +114,24 @@ class Ohai::Application
       Ohai::Config.node_name = Ohai::Config.target_mode.host unless Ohai::Config.node_name
     end
 
-    Ohai::Log.init(Ohai.config[:log_location])
+    Ohai::Log.init(config[:log_location])
+  end
+
+  # @api private
+  def config_file_defaults
+    Ohai::Config.save(true)
+  end
+
+  # @api private
+  def config_file_settings
+    Ohai::Config.save(false)
+  end
+
+  # See lib/chef/knife.rb in the chef/chef github repo
+  #
+  # @api private
+  def merge_configs
+    config.replace(config_file_defaults.merge(default_config).merge(config_file_settings).merge(config))
   end
 
   # Passes config and attributes arguments to Ohai::System then prints the results.
