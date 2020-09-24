@@ -33,6 +33,12 @@ module Ohai
       def __extra_path
         __default_paths
       end
+
+      # beause of target mode we cache the PATH to avoid massive amounts of `echo $PATH` remote queries
+      #
+      def __env_path
+        @__env_path ||= super
+      end
     end
   end
 end

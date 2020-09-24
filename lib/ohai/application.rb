@@ -114,7 +114,7 @@ class Ohai::Application
       Ohai::Config.node_name = Ohai::Config.target_mode.host unless Ohai::Config.node_name
     end
 
-    Ohai::Log.init(config[:log_location])
+    Ohai::Log.init(Ohai.config[:log_location])
   end
 
   # @api private
@@ -132,6 +132,7 @@ class Ohai::Application
   # @api private
   def merge_configs
     config.replace(config_file_defaults.merge(default_config).merge(config_file_settings).merge(config))
+    Ohai::Config.merge!(config) # make them both the same
   end
 
   # Passes config and attributes arguments to Ohai::System then prints the results.
