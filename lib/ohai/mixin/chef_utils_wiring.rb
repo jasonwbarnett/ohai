@@ -16,6 +16,7 @@
 #
 
 require_relative "../config"
+require "singleton" unless defined?(Singleton)
 
 module Ohai
   module Mixin
@@ -33,6 +34,17 @@ module Ohai
 
       def __transport_connection
         transport_connection
+      end
+
+      # beause of target mode we cache the PATH to avoid massive amounts of `echo $PATH` remote queries
+      #
+      def __env_path
+        PathCache.instance.path_cache ||= super
+      end
+
+      class PathCache
+        include Singleton
+        attr_accessor :path_cache
       end
     end
   end
