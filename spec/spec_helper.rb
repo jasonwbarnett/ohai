@@ -24,6 +24,7 @@ include Ohai::Mixin::ConstantHelper
 
 if Ohai::Mixin::OS.collect_os_local == /mswin|mingw32|windows/
   ENV["PATH"] = ""
+  Ohai::Mixin::ChefUtilsWiring::PathCache.instance.reset!
 end
 
 def get_plugin(plugin, ohai = Ohai::System.new, path = PLUGIN_PATH)

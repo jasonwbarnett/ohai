@@ -31,8 +31,7 @@ describe Ohai::Mixin::ShellOut, "shell_out" do
     path_var = windows? ? "Path" : "PATH"
 
     # this just replicates the behavior of default_paths in chef-utils
-    split_path = ENV[path_var].nil? ? [] : ENV[path_var].split(File::PATH_SEPARATOR)
-    default_paths = [ Gem.bindir, RbConfig::CONFIG["bindir"], split_path ].flatten.compact.uniq
+    default_paths = [ Gem.bindir, RbConfig::CONFIG["bindir"], split_path ].compact.uniq
 
     if windows?
       default_paths = default_paths.join(";")

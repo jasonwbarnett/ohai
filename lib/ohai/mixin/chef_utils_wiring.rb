@@ -45,6 +45,10 @@ module Ohai
       class PathCache
         include Singleton
         attr_accessor :path_cache
+
+        def reset!
+          @path_cache = nil
+        end
       end
     end
   end
