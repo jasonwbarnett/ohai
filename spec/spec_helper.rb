@@ -22,11 +22,6 @@ end
 
 include Ohai::Mixin::ConstantHelper
 
-if Ohai::Mixin::OS.collect_os_local == /mswin|mingw32|windows/
-  ENV["Path"] = ""
-  Ohai::Mixin::ChefUtilsWiring::PathCache.instance.path_cache = ""
-end
-
 def get_plugin(plugin, ohai = Ohai::System.new, path = PLUGIN_PATH)
   loader = Ohai::Loader.new(ohai)
   loader.load_plugin(File.join(path, "#{plugin}.rb"))
