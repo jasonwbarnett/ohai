@@ -23,7 +23,7 @@ end
 include Ohai::Mixin::ConstantHelper
 
 if Ohai::Mixin::OS.collect_os_local == /mswin|mingw32|windows/
-  ENV["PATH"] = ""
+  ENV["Path"] = ""
   Ohai::Mixin::ChefUtilsWiring::PathCache.instance.path_cache = ""
 end
 
